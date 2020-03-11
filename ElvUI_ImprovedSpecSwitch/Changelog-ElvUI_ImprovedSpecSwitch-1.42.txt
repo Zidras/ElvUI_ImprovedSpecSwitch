@@ -1,0 +1,21 @@
+------------------------------------------------------------------------
+r13 | lockslap | 2013-01-18 08:16:25 +0000 (Fri, 18 Jan 2013) | 1 line
+Changed paths:
+   A /tags/1.42 (from /trunk:12)
+
+Tagged as version 1.42.
+------------------------------------------------------------------------
+r12 | lockslap | 2013-01-18 08:16:02 +0000 (Fri, 18 Jan 2013) | 1 line
+Changed paths:
+   M /trunk/ElvUI_ImprovedSpecSwitch.lua
+   M /trunk/ElvUI_ImprovedSpecSwitch.toc
+
+Updated datatext to support ElvUI's tooltip changes.
+------------------------------------------------------------------------
+r9 | lockslap | 2012-12-31 08:14:20 +0000 (Mon, 31 Dec 2012) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/ElvUI_ImprovedSpecSwitch.toc
+
+Disabled no-lib package creation in Curse's packager.
+------------------------------------------------------------------------
