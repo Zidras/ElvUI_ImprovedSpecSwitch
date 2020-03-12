@@ -4,7 +4,7 @@
 -------------------------------------------------------------------------------
 local E, L, V, P, G = unpack(ElvUI) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local DT = E:GetModule("DataTexts")
-local L = LibStub("AceLocale-3.0"):GetLocale("ElvUI_ISS", false)
+local L = LibStub("AceLocale-3.0-ElvUI"):GetLocale("ElvUI", false)
 local EP = LibStub("LibElvUIPlugin-1.0")
 
 --Lua functions
@@ -48,13 +48,6 @@ end
 local function OnEvent(self, event)
 	lastPanel = self
 
-	--[[if not GetTalentTabInfo(1) then return end
-	active = GetActiveTalentGroup()
-	activeSet = GetCurrentEquipmentSet()
-	if GetActiveTalentGroup(false, false, active) then
-		self.text:SetText(select(2, GetTalentTabInfo(GetActiveTalentGroup(false, false, active))))
-	end]]
-
 	local specIndex = GetActiveTalentGroup()
 	if not specIndex then
 		self.text:SetFormattedText(noSpecString, L["No Specialization"])
@@ -64,18 +57,10 @@ local function OnEvent(self, event)
 	active = specIndex
 	activeSet = GetCurrentEquipmentSet()
 
-	--[[local talent = ''
-	if GetActiveTalentGroup(false, false, active) then
-		talent = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', select(4, GetTalentTabInfo(GetActiveTalentGroup(false, false, active))))
-		--_, specName, talent = E:GetTalentSpecInfo()
-	end]]
-
 	local _, specName, talent = E:GetTalentSpecInfo()
-	talent = format("|T%s:24:24:0:0:64:64:4:60:4:60|t", talent)
 	self.text:SetText(format("%s: %s", L["Spec"], specName))
 	
 	-- determine if we need to change the equipment set
-
 	if self.clicked and E.db.impss.switch and GetNumEquipmentSets() > 0 then
 		local set = active == 1 and E.db.impss.primary or E.db.impss.secondary	-- the set that should be equipped
 		if set ~= "none" and set ~= activeSet then
@@ -92,16 +77,8 @@ local function OnEnter(self)
 		local _, specName, talent = E:GetTalentSpecInfo()
 		local name, icon = GetTalentTabInfo(i)
 			DT.tooltip:AddLine(join(" ", AddTexture(icon), format(displayString, name), (specName == name and activeString or inactiveString)), 1, 1, 1)
-			--DT.tooltip:AddDoubleLine(displayString:format(icon, name), (specName == name and activeString or inactiveString), 1, 1, 1)
 	end
 	
-
-	--[[if GetActiveTalentGroup(false, false, i) then
-			local _, name, _, icon, _, _ = GetTalentTabInfo(GetActiveTalentGroup(false, false, i))
-			DT.tooltip:AddDoubleLine(displayString:format(icon, name), i == active and activeString or inactiveString, 1, 1, 1)
-		end
-	end]]
-
 	if E.db.impss.hint == true then
 		DT.tooltip:AddLine(" ")
 		DT.tooltip:AddDoubleLine(L["Left Click"], L["Change Specialization"], 1, 1, 1, 1, 1, 0)
@@ -123,7 +100,6 @@ local function OnClick(self, button)
 end
 
 local function ValueColorUpdate(hex)
-	--displayString = join("", "|T%s:22:22:1:0|t |cffffffff%s:|r")
 	displayString = join("", "|cffFFFFFF%s:|r ")
 	noSpecString = join("", hex, "%s|r")
 	if lastPanel ~= nil then
@@ -140,27 +116,6 @@ P["impss"] = {
 }
 
 local function InsertOptions()
-	--[[if not E.Options.args.lockslap then
-		E.Options.args.lockslap = {
-			type = "group",
-			order = -2,
-			name = L["Plugins by |cff9382c9Lockslap|r"],
-			args = {
-				thanks = {
-					type = "description",
-					order = 1,
-					name = L["Thanks for using and supporting my work!  -- |cff9382c9Lockslap|r\n\n|cffff0000If you find any bugs, or have any suggestions for any of my addons, please open a ticket at that particular addon's page on CurseForge."],
-				},
-			},
-		}
-	elseif not E.Options.args.lockslap.args.thanks then
-		E.Options.args.lockslap.args.thanks = {
-			type = "description",
-			order = 1,
-			name = L["Thanks for using and supporting my work!  -- |cff9382c9Lockslap|r\n\n|cffff0000If you find any bugs, or have any suggestions for any of my addons, please open a ticket at that particular addon's page on CurseForge."],
-		}
-	end]]
-	
 	E.Options.args.plugins.args.ISS = {
 		type = "group",
 		name = L["Improved Spec Switch"],
@@ -174,7 +129,7 @@ local function InsertOptions()
 				name = L["Swap Equipment Sets"],
 				desc = L["Change equipment sets when you change your spec."],
 				disabled = function()
-					if not GetActiveTalentGroup(false, false, 1) or not GetActiveTalentGroup(false, false, 2) then 
+					if not GetActiveTalentGroup(false, false) then 
 						return true
 					else
 						return false
@@ -184,7 +139,7 @@ local function InsertOptions()
 			primary = {
 				type = "select",
 				order = 2,
-				name = GetActiveTalentGroup(false, false, 1) and select(2, GetTalentTabInfo(GetActiveTalentGroup(false, false, 1))) or L["Primary Talents"],
+				name = L["Primary Talents"], --For Primary Spec Name add: select(2, E:GetTalentSpecInfo()) or 
 				desc = L["Choose the equipment set to use for your primary spec."],
 				disabled = function() return not E.db.impss.switch end,
 				values = function()
@@ -204,7 +159,7 @@ local function InsertOptions()
 			secondary = {
 				type = "select",
 				order = 3,
-				name = GetActiveTalentGroup(false, false, 2) and select(2, GetTalentTabInfo(GetActiveTalentGroup(false, false, 2))) or L["Secondary Talents"],
+				name = L["Secondary Talents"], -- TO DO: find a way to add Secondary Spec Name
 				desc = L["Choose the equipment set to use for your secondary spec."],
 				disabled = function() return not E.db.impss.switch end,
 				values = function()

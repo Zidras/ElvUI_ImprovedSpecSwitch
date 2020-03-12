@@ -1,13 +1,9 @@
 ## Interface: 30300
 ## Author: Lockslap, Zidras
 ## Title: |cff1784d1E|r|cffe5e3e3lvUI|r |cff1784d1I|r|cffe5e3e3mproved |cff1784d1S|r|cffe5e3e3pec |cff1784d1S|r|cffe5e3e3witch|r
-## Version: 2.22
+## Version: 1.00
 ## Notes: An improved Spec Switch datatext for ElvUI.
 ## RequiredDeps: ElvUI
-## X-Curse-Packaged-Version: 2.22
-## X-Curse-Project-Name: ElvUI Improved Spec Switch
-## X-Curse-Project-ID: elvui-improved-spec-switch
-## X-Curse-Repository-ID: wow/elvui-improved-spec-switch/mainline
 
 Libraries\LibStub\LibStub.lua
 Libraries\CallbackHandler-1.0\CallbackHandler-1.0.xml
