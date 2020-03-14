@@ -1,5 +1,5 @@
 ## Interface: 30300
-## Author: Lockslap, Zidras
+## Author: Lockslap, Zidras, Loaal
 ## Title: |cff1784d1E|r|cffe5e3e3lvUI|r |cff1784d1I|r|cffe5e3e3mproved |cff1784d1S|r|cffe5e3e3pec |cff1784d1S|r|cffe5e3e3witch|r
 ## Version: 1.00
 ## Notes: An improved Spec Switch datatext for ElvUI.
