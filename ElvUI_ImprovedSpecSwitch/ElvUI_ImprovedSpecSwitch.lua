@@ -22,7 +22,7 @@ local ToggleTalentFrame = ToggleTalentFrame
 local MAX_TALENT_TABS = MAX_TALENT_TABS
 
 local lastPanel, active, activeSet
-local displayString, displayString2, noSpecString = ""
+local displayString = ""
 local activeString = format("|cff00ff00%s|r", "Active") -- ACTIVE_PETS doesn't exist and didn't find an "Active" global
 local inactiveString = format("|cffff0000%s|r", FACTION_INACTIVE)
 
@@ -85,9 +85,6 @@ local function OnEnter(self)
 end
 
 local function OnClick(self, button)
-	local specIndex = GetActiveTalentGroup()
-	if not specIndex then return end -- always have value?
-
 	if button == "LeftButton" then
 		SetActiveTalentGroup(active == 1 and 2 or 1)
 		self.clicked = true
@@ -98,9 +95,7 @@ end
 
 local function ValueColorUpdate(hex)
 	displayString = join("", "|cffFFFFFF%s:|r ")
-	displayString2 = join("", "%s ", hex, "%s|r")
-	noSpecString = join("", hex, "%s|r")
-
+	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
 	end
