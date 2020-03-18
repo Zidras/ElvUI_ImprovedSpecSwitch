@@ -7,7 +7,6 @@ local DT = E:GetModule("DataTexts")
 local EP = LibStub("LibElvUIPlugin-1.0")
 
 --Lua functions
-local _G = _G
 local format, join = string.format, string.join
 
 --WoW API / Variables
@@ -37,8 +36,11 @@ end
 local function GetCurrentEquipmentSet()
 	for i = 1, GetNumEquipmentSets() do
 		local name = GetEquipmentSetInfo(i)
-		return name
+		if nil then
+			return name
+		end
 	end
+	return false
 end
 
 local function OnEvent(self, event)
